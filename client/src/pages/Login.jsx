@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import login from "../assets/images/login.png";
 import lock from "../assets/icons/lock.svg";
 import Input from "../components/Input";
 import Logo from "../components/Logo";
-import { useNavigate } from "react-router-dom";
+import Register from "../components/Register";
 
 const Login = () => {
   const navigate = useNavigate();
   const [forget, setForget] = useState(false);
+  const [register, setRegister] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -16,6 +18,8 @@ const Login = () => {
 
   return (
     <div className="login_container">
+      <Register register={register} setRegister={setRegister} />
+
       <div className="login-right">
         <h1 className="display-3">Report and Check Stolen Devices</h1>
         <img src={login} alt="" />
@@ -71,9 +75,12 @@ const Login = () => {
                 <p className="opacity-75 p-0 text-white h-100">
                   Don't have an account?
                 </p>
-                <button className="bg-transparent opacity-75 border-0 p-0 text-white h-100">
+                <div
+                  onClick={() => setRegister(true)}
+                  className="bg-transparent opacity-75 border-0 p-0 text-white h-100 pointer"
+                >
                   Register here!
-                </button>
+                </div>
               </div>
 
               {!forget && (
