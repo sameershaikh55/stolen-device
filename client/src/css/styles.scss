@@ -492,6 +492,34 @@ a:link {
 }
 // REGISTER END
 
+// HOME START
+.home_container {
+  background-image: linear-gradient(#283046e8, #283046e8),
+    url("../assets/images/home.jpg");
+  min-height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+
+  .navigation {
+    &:hover {
+      transform: translateX(-10px);
+    }
+
+    .icon {
+      background: $color2;
+      min-height: 85px;
+    }
+    .content {
+      border: 1px solid $color2;
+    }
+  }
+}
+// HOME END
+
 // RESPONSIVES START
 @media screen and (max-width: 1100px) {
   .login_container {
