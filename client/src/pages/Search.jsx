@@ -4,8 +4,15 @@ import GoBack from "../components/GoBack";
 import Input from "../components/Input";
 import Checkbox from "../components/Checkbox";
 import Layout from "../layout";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
+  const navigate = useNavigate();
+
+  const submit = () => {
+    navigate('/search-results');
+  };
+
   return (
     <Layout classname="home_container">
       <div className="col-12">
@@ -22,7 +29,7 @@ const Search = () => {
         <br />
         <div className="col-12">
           <div className="container-fluid">
-            <form className="row gy-4 form_container">
+            <form onSubmit={submit} className="row gy-4 form_container">
               <div className="col-6 col-md-4">
                 <Input label="Make" />
               </div>

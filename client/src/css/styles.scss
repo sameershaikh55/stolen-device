@@ -767,6 +767,84 @@ input[type="date"] {
 }
 // PROFILE END
 
+// SEARCH RESULTS TABLE START
+.table_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .inner_table_container {
+    max-height: calc(100vh - 220px);
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      margin-right: 1rem;
+      height: 8px;
+      width: 6px;
+      border-radius: 20px;
+      border-left: 20px solid $color8;
+      border-right: 20px solid $color8;
+    }
+    &::-webkit-scrollbar-track {
+      background: $color8;
+      border-left: 20px solid $color8;
+      border-right: 20px solid $color8;
+      border-radius: 20px;
+      width: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color3;
+      border: 2px solid $color8;
+      border-radius: 20px;
+      width: 1px;
+    }
+  }
+
+  thead {
+    border-radius: 10px;
+  }
+
+  tr:last-child td {
+    border-bottom: 0;
+  }
+
+  thead tr {
+    background: $color1;
+    color: $color2;
+    border-radius: 10px;
+  }
+
+  th,
+  td {
+    margin: 0;
+    padding: 0.4rem;
+    // border-bottom: 1px solid #d1cccc;
+    // border-right: 1px solid #d1cccc;
+
+    .sorting_icons {
+      transform: rotate(90deg);
+    }
+  }
+
+  tbody {
+    th:last-child,
+    td:last-child {
+      border-right: 0;
+    }
+
+    tr:nth-child(odd) {
+      background: #f3f3f3;
+      // color: #000000;
+    }
+
+    tr:nth-child(even) {
+      background: #ffffff;
+      // color: #000000;
+    }
+  }
+}
+// SEARCH RESULTS TABLE END
+
 // RESPONSIVES START
 @media screen and (max-width: 1100px) {
   .login_container {
@@ -791,6 +869,12 @@ input[type="date"] {
     .inner_register_container {
       max-height: 80vh;
       overflow-y: auto;
+    }
+  }
+
+  .table_container {
+    table {
+      min-width: 1000px;
     }
   }
 }
