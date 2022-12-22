@@ -9,6 +9,7 @@ import Report from "./pages/Report";
 import RegisterDevice from "./pages/RegisterDevice";
 import Search from "./pages/Search";
 import SearchResults from "./pages/SearchResults";
+import DeviceDetail from "./pages/DeviceDetail";
 
 const AppRoutes = () => {
   return (
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/register-device" element={<RegisterDevice />} />
         <Route path="/search-device" element={<Search />} />
         <Route path="/search-results" element={<SearchResults />} />
+        <Route path="/stolen-device" element={<DeviceDetail />} />
       </Routes>
     </Router>
   );

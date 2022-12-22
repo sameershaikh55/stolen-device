@@ -5,7 +5,7 @@ const Layout = ({ children, classname }) => {
     <div className={classname}>
       <div className="page_container w-100">
         <div className="container-fluid">
-          <div className="row">{children}</div>
+          <div className="row gy-4">{children}</div>
         </div>
       </div>
     </div>

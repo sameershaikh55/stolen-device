@@ -2,8 +2,10 @@ import { useTable, useSortBy } from "react-table";
 import useRows from "./hooks/useRows";
 import useColumns from "./hooks/useColumns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 export default function Table() {
+  const navigate = useNavigate();
   const columns = useColumns();
   const data = useRows();
   const table = useTable({ columns, data }, useSortBy);
@@ -53,7 +55,11 @@ export default function Table() {
                 prepareRow(row);
                 return (
                   // Apply the row props
-                  <tr {...row.getRowProps()}>
+                  <tr
+                    className="pointer"
+                    onClick={() => navigate("/stolen-device")}
+                    {...row.getRowProps()}
+                  >
                     {
                       // Loop over the rows cells
                       row.cells.map((cell) => {

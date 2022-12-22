@@ -718,6 +718,7 @@ input[type="date"] {
   background-size: cover;
   display: flex;
   align-items: center;
+  padding: 1rem 0rem;
 
   .navigation {
     &:hover {
@@ -752,20 +753,6 @@ input[type="date"] {
   }
 }
 // HOME END
-
-// PROFILE START
-.profile_container {
-  background-image: linear-gradient(#283046e8, #283046e8),
-    url("../assets/images/home.jpg");
-  min-height: 100vh;
-  width: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-}
-// PROFILE END
 
 // SEARCH RESULTS TABLE START
 .table_container {
@@ -840,6 +827,10 @@ input[type="date"] {
     tr:nth-child(even) {
       background: #ffffff;
       // color: #000000;
+    }
+
+    tr img {
+      object-fit: cover;
     }
   }
 }

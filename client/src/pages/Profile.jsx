@@ -7,7 +7,7 @@ import Layout from "../layout";
 
 const Profile = () => {
   return (
-    <Layout classname="profile_container">
+    <Layout classname="home_container">
       <div className="col-12 col-md-4">
         <div className="d-flex flex-column align-items-center">
           <div>
