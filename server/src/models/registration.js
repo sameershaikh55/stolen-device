@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { Schema, model } = mongoose;
 const bcrypt = require("bcryptjs");
 const validator = require("validator");
+const crypto = require("crypto");
 var jwt = require("jsonwebtoken");
 // const { avatar } = require("../../public/images/avatar");
 
@@ -54,6 +55,10 @@ const usersSchema = new Schema({
     minLength: [8, "Password should be greater than 8 characters"],
     select: false,
   },
+  resetPasswordToken: {
+    token: String,
+    expire: Date,
+  },
   // avatar: {
   //   public_id: {
   //     type: String,
@@ -84,6 +89,22 @@ usersSchema.methods.getJWTToken = function () {
   return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRE,
   });
+};
+
+// TO GENERATE FORGET PASSWORD TOKEN
+usersSchema.methods.getResetPasswordToken = function () {
+  // Generating Token
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  // Hashing and adding resetPasswordToken to userSchema
+  this.resetPasswordToken.token = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordToken.expire = Date.now() + 15 * 60 * 1000;
+
+  return resetToken;
 };
 
 const RegistrationModel = new model("users", usersSchema);
