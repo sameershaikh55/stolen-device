@@ -10,6 +10,7 @@ import RegisterDevice from "./pages/RegisterDevice";
 import Search from "./pages/Search";
 import SearchResults from "./pages/SearchResults";
 import DeviceDetail from "./pages/DeviceDetail";
+import UserReset from "./pages/UserReset";
 
 const AppRoutes = () => {
   return (
@@ -23,6 +24,7 @@ const AppRoutes = () => {
         <Route path="/search-device" element={<Search />} />
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/stolen-device" element={<DeviceDetail />} />
+        <Route path="/password/reset/:token" element={<UserReset />} />
       </Routes>
     </Router>
   );
