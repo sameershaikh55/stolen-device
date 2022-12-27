@@ -1,14 +1,19 @@
-import React from "react";
+import React, { Fragment } from "react";
+import Metadata from "../components/Metadata";
 
-const Layout = ({ children, classname }) => {
+const Layout = ({ children, classname, title }) => {
   return (
-    <div className={classname}>
-      <div className="page_container w-100">
-        <div className="container-fluid">
-          <div className="row gy-4">{children}</div>
+    <Fragment>
+      <Metadata title={title} />
+
+      <div className={classname}>
+        <div className="page_container w-100">
+          <div className="container-fluid">
+            <div className="row gy-4">{children}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

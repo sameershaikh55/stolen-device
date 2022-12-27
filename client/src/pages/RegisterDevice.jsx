@@ -8,7 +8,7 @@ import Layout from "../layout";
 
 const RegisterDevice = () => {
   return (
-    <Layout classname="home_container">
+    <Layout classname="home_container" title="Register Device">
       <div className="col-6 color2">
         <FormTaglines
           title="Register my devices"

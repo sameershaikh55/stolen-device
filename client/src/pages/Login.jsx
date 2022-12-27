@@ -5,6 +5,8 @@ import lock from "../assets/icons/lock.svg";
 import Input from "../components/Input";
 import Logo from "../components/Logo";
 import Register from "../components/Register";
+import Metadata from "../components/Metadata";
+// import Loader from "../components/Loader";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,6 +20,9 @@ const Login = () => {
 
   return (
     <div className="login_container">
+      <Metadata title="Login" />
+      {/* <Loader /> */}
+
       <Register register={register} setRegister={setRegister} />
 
       <div className="login-right">

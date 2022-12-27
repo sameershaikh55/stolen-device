@@ -10,11 +10,11 @@ const Search = () => {
   const navigate = useNavigate();
 
   const submit = () => {
-    navigate('/search-results');
+    navigate("/search-results");
   };
 
   return (
-    <Layout classname="home_container">
+    <Layout classname="home_container" title="Search">
       <div className="col-12">
         <div className="col-12 color2 d-flex align-items-start d-flex flex-column flex-md-row justify-content-md-between">
           <div>

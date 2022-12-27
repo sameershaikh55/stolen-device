@@ -28,7 +28,7 @@ const Home = () => {
   ];
 
   return (
-    <Layout classname="home_container">
+    <Layout classname="home_container" title="Home">
       <div className="col-12 col-md-5">
         <div className="d-flex flex-column align-items-center">
           <Link to="/profile">

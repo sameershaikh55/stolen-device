@@ -4,6 +4,7 @@ import Input from "../components/Input";
 import Logo from "../components/Logo";
 import login from "../assets/images/login.png";
 import lock from "../assets/icons/lock.svg";
+import Metadata from "../components/Metadata";
 
 const UserReset = () => {
   const navigate = useNavigate();
@@ -15,6 +16,8 @@ const UserReset = () => {
 
   return (
     <div className="login_container">
+      <Metadata title="Reset Password" />
+
       <div className="login-right">
         <h1 className="display-3">Report and Check Stolen Devices</h1>
         <img src={login} alt="" />

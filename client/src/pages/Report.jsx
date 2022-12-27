@@ -8,7 +8,7 @@ import Layout from "../layout";
 
 const Report = () => {
   return (
-    <Layout classname="home_container">
+    <Layout classname="home_container" title="Report Device">
       <div className="col-6 color2">
         <FormTaglines
           title="Add your lost or stolen device to our registry"
