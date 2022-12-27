@@ -40,6 +40,10 @@ const registerDevicesSchema = new Schema({
     required: [true, "Please upload a device image"],
     trim: true,
   },
+  user: {
+    type: mongoose.Types.ObjectId,
+    ref: "users",
+  },
   createdAt: {
     type: Date,
     default: Date.now,

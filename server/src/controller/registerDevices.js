@@ -1,6 +1,7 @@
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const RegisterDevicesModel = require("../models/registerDevices");
+const RegistrationModel = require("../models/registration");
 const sendResponse = require("../utils/sendResponse");
 const path = require("path");
 const fs = require("fs");
@@ -22,6 +23,14 @@ exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("serial/IMEI Number already registered", 400));
   }
 
-  const newDevice = await RegisterDevicesModel.create(req.body);
+  const newDevice = await RegisterDevicesModel.create({
+    user: res.user._id,
+    ...req.body,
+  });
+
+  const user = await RegistrationModel.findById(res.user._id);
+  user.devices.push(req.body._id);
+  await user.save();
+
   sendResponse(true, 201, "device", newDevice, res);
 });
