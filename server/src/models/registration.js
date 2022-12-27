@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 const validator = require("validator");
 const crypto = require("crypto");
 var jwt = require("jsonwebtoken");
-// const { avatar } = require("../../public/images/avatar");
 
 const usersSchema = new Schema({
   name: {
@@ -58,18 +57,8 @@ const usersSchema = new Schema({
   resetPasswordToken: {
     token: String,
     expire: Date,
+    select: false,
   },
-  // avatar: {
-  //   public_id: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   url: {
-  //     type: String,
-  //     required: true,
-  //     default: avatar,
-  //   },
-  // },
   createdAt: {
     type: Date,
     default: Date.now,

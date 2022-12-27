@@ -30,7 +30,6 @@ exports.login = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Invalid email and password", 400));
 
   gettingRecord.password = undefined;
-  gettingRecord.resetPasswordToken = undefined;
   sendToken(gettingRecord, 200, res);
 });
 
@@ -43,17 +42,13 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
   sendResponse(true, 200, "message", "logged out successfully", res);
 });
 
-// GET USER DATA WITH TOKEN AUTHENTICATION
-exports.getUserData = catchAsyncErrors(async (req, res, next) => {
-  res.user.resetPasswordToken = undefined;
-  sendResponse(true, 200, "user", res.user, res);
-});
-
 // Forget Password
 exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
   const { email } = req.body;
 
-  const user = await RegistrationModel.findOne({ email });
+  const user = await RegistrationModel.findOne({ email }).select(
+    "+resetPasswordToken"
+  );
 
   if (!user) {
     return next(new ErrorHandler("user not found", 404));
@@ -121,8 +116,6 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("Password does not match", 400));
   }
 
-  // const hash = bcrypt.hashSync(password, bcrypt.genSaltSync(12));
-
   user.password = password;
   user.resetPasswordToken.token = undefined;
   user.resetPasswordToken.expire = undefined;
@@ -131,20 +124,3 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   sendResponse(true, 200, "message", "Password Reset Successfully!", res);
 });
-
-// CHANGES AND UPDATE USER PROFILE PICTURE
-// exports.changeUserImage = catchAsyncErrors(async (req, res, next) => {
-//   const storingData = {
-//     ...req.body,
-//   };
-
-//   const gettingRecord = await RegistrationModel.findByIdAndUpdate(
-//     res.user._id,
-//     storingData,
-//     {
-//       new: true,
-//     }
-//   );
-
-//   sendResponse(true, 200, "user", gettingRecord, res);
-// });
