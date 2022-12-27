@@ -1,4 +1,5 @@
 const multer = require("multer");
+const { ObjectId } = require("mongodb");
 const ErrorHandler = require("./errorhandler");
 const path = require("path");
 
@@ -17,10 +18,11 @@ const upload = multer({
       cb(null, path.resolve(__dirname, "../../" + "public/images"));
     },
     filename: (req, file, cb) => {
-      cb(
-        null,
-        new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
-      );
+      req.body._id = new ObjectId();
+      req.body.deviceImage =
+        req.body._id.toString() + `.${file.mimetype.split("/").pop()}`;
+
+      cb(null, req.body.deviceImage);
     },
     onerror: (err, next) => {
       console.log(err);

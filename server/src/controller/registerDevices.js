@@ -1,4 +1,3 @@
-const sharp = require("sharp");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const RegisterDevicesModel = require("../models/registerDevices");
@@ -8,22 +7,21 @@ const fs = require("fs");
 
 // REGISTER DEVICES
 exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.body);
-  console.log(req.file);
+  const isAdded = await RegisterDevicesModel.findOne({
+    serial: req.body.serial,
+  });
 
-  const imgPath = path.resolve(
-    __dirname,
-    "../../" + "public/images",
-    req.file.filename
-  );
-
-  await sharp(imgPath)
-    .resize({ width: 500, height: 300 })
-    .png()
-    .toFile(
-      path.resolve(__dirname, "../../" + "public/images", req.file.originalname)
+  if (isAdded) {
+    const imgPath = path.resolve(
+      __dirname,
+      "../../" + "public/images",
+      req.file.filename
     );
+    fs.unlinkSync(imgPath);
 
-  fs.unlinkSync(imgPath);
-  res.status(201).send("Image uploaded succesfully");
+    return next(new ErrorHandler("serial/IMEI Number already registered", 400));
+  }
+
+  const newDevice = await RegisterDevicesModel.create(req.body);
+  sendResponse(true, 201, "device", newDevice, res);
 });
