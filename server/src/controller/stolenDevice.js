@@ -1,14 +1,14 @@
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const RegisterDevicesModel = require("../models/registerDevices");
+const StolenDeviceModel = require("../models/stolenDevice");
 const RegistrationModel = require("../models/registration");
 const sendResponse = require("../utils/sendResponse");
 const path = require("path");
 const fs = require("fs");
 
-// REGISTER DEVICES
-exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
-  const isAdded = await RegisterDevicesModel.findOne({
+// REPORT DEVICES
+exports.reportDevice = catchAsyncErrors(async (req, res, next) => {
+  const isAdded = await StolenDeviceModel.findOne({
     serial: req.body.serial,
   });
 
@@ -23,13 +23,13 @@ exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("serial/IMEI Number already registered", 400));
   }
 
-  const newDevice = await RegisterDevicesModel.create({
+  const newDevice = await StolenDeviceModel.create({
     user: res.user._id,
     ...req.body,
   });
 
   const user = await RegistrationModel.findById(res.user._id);
-  user.devices.registered.push(req.body._id);
+  user.devices.stolen.push(req.body._id);
   await user.save();
 
   sendResponse(true, 201, "device", newDevice, res);

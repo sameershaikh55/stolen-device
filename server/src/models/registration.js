@@ -59,12 +59,20 @@ const usersSchema = new Schema({
     expire: Date,
     select: false,
   },
-  devices: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: "registerDevices",
-    },
-  ],
+  devices: {
+    registered: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "registerDevices",
+      },
+    ],
+    stolen: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: "stolenDevice",
+      },
+    ],
+  },
   createdAt: {
     type: Date,
     default: Date.now,

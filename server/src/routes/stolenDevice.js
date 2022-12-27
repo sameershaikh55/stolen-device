@@ -6,11 +6,11 @@ const upload = require("../utils/imageUpload");
 const { authentication } = require("../middleware/authentication");
 
 // CONTROLLERS
-const { registerDevice } = require("../controller/registerDevices");
+const { reportDevice } = require("../controller/stolenDevice");
 
 // ROUTES
 router
-  .route("/register")
-  .post(authentication, upload.single("deviceImage"), registerDevice);
+  .route("/report")
+  .post(authentication, upload.single("deviceImage"), reportDevice);
 
 module.exports = router;
