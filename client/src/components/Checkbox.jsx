@@ -27,12 +27,12 @@ const SelectBox = ({ title }) => {
         </summary>
         <ul className="list-unstyled list">
           <li>
-            <label for={`${title}item1`}>
+            <label htmlFor={`${title}item1`}>
               Item 1<span></span>
             </label>
           </li>
           <li>
-            <label for={`${title}item2`}>Item 2</label>
+            <label htmlFor={`${title}item2`}>Item 2</label>
           </li>
         </ul>
       </details>

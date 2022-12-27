@@ -41,7 +41,7 @@ const Report = () => {
             <Textarea label="List any unique identifiers" />
           </div>
           <div className="col-12">
-            <input type="file" class="form-control" id="customFile" />
+            <input type="file" className="form-control" id="customFile" />
           </div>
           <div className="col-12">
             <Input label="Country" />
