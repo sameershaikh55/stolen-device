@@ -19,3 +19,12 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 exports.getUserData = catchAsyncErrors(async (req, res, next) => {
   sendResponse(true, 200, "user", res.user, res);
 });
+
+// GET USER DEVICES WITH TOKEN AUTHENTICATION
+exports.getUserDevices = catchAsyncErrors(async (req, res, next) => {
+  const userData = await RegistrationModel.findById(res.user._id)
+    .populate("devices.registered")
+    .populate("devices.stolen");
+
+  sendResponse(true, 200, "devices", userData.devices, res);
+});
