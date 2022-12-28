@@ -12,6 +12,11 @@ import {
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
   CLEAR_ERRORS,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
+  USER_DEVICES_REQUEST,
+  USER_DEVICES_FAIL,
+  USER_DEVICES_SUCCESS,
 } from "../type/auth";
 import axios from "axios";
 
@@ -91,6 +96,29 @@ export const loadUser = () => async (dispatch) => {
     dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
   } catch (error) {
     dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
+  }
+};
+
+// User Devices
+export const userDevices = () => async (dispatch) => {
+  try {
+    dispatch({ type: USER_DEVICES_REQUEST });
+
+    const { data } = await axios.get(`/api/profile/user-devices`);
+
+    dispatch({ type: USER_DEVICES_SUCCESS, payload: data.devices });
+  } catch (error) {
+    dispatch({ type: USER_DEVICES_FAIL, payload: error.response.data.message });
+  }
+};
+
+// Logout User
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.get(`/api/auth/logout`);
+    dispatch({ type: LOGOUT_SUCCESS });
+  } catch (error) {
+    dispatch({ type: LOGOUT_FAIL, payload: error.response.data.message });
   }
 };
 

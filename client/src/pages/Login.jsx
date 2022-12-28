@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import loginpng from "../assets/images/login.png";
 import lock from "../assets/icons/lock.svg";
 import Input from "../components/Input";
@@ -18,7 +17,6 @@ const Login = () => {
   const userState = useSelector((state) => state.user);
   const forgetPasswordState = useSelector((state) => state.forgetPassword);
 
-  const navigate = useNavigate();
   const [forget, setForget] = useState(false);
   const [register, setRegister] = useState(false);
   const [loginHandle, setLoginHandle] = useState({
@@ -53,7 +51,7 @@ const Login = () => {
     }
 
     if (userState.isAuthenticated) {
-      navigate("/");
+      alert.success("Login successfully");
     }
   }, [
     dispatch,

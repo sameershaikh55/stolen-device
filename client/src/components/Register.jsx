@@ -4,7 +4,6 @@ import lock from "../assets/icons/lock.svg";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
-import { useNavigate } from "react-router-dom";
 import { registeration, clearErrors } from "../redux/action/auth";
 import Loader from "../components/Loader";
 
@@ -56,7 +55,6 @@ const Register = ({ register, setRegister }) => {
       name: "cpassword",
     },
   ];
-  const navigate = useNavigate();
   const [terms, setTerms] = useState(false);
   const [registerHandle, setRegisterHandle] = useState({
     name: "",
@@ -92,7 +90,7 @@ const Register = ({ register, setRegister }) => {
     }
 
     if (isAuthenticated) {
-      navigate("/");
+      alert.success("Registered successfully");
     }
   }, [dispatch, alert, isAuthenticated, error]);
 

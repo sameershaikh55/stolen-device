@@ -11,7 +11,12 @@ import {
   LOAD_USER_REQUEST,
   LOAD_USER_SUCCESS,
   LOAD_USER_FAIL,
+  LOGOUT_SUCCESS,
+  LOGOUT_FAIL,
   CLEAR_ERRORS,
+  USER_DEVICES_REQUEST,
+  USER_DEVICES_SUCCESS,
+  USER_DEVICES_FAIL,
 } from "../type/auth";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -32,6 +37,12 @@ export const userReducer = (state = { user: {} }, action) => {
         isAuthenticated: true,
         user: action.payload,
       };
+    case LOGOUT_SUCCESS:
+      return {
+        loading: false,
+        user: null,
+        isAuthenticated: false,
+      };
     case LOGIN_FAIL:
     case REGISTERATION_FAIL:
       return {
@@ -46,6 +57,12 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: false,
         user: null,
+        error: action.payload,
+      };
+    case LOGOUT_FAIL:
+      return {
+        ...state,
+        loading: false,
         error: action.payload,
       };
     case CLEAR_ERRORS:
@@ -76,6 +93,39 @@ export const forgotPasswordReducer = (state = {}, action) => {
     case FORGOT_PASSWORD_FAIL:
       return {
         ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const userDevicesReducer = (
+  state = { registered: [], stolen: [] },
+  action
+) => {
+  switch (action.type) {
+    case USER_DEVICES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case USER_DEVICES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        registered: action.payload.registered,
+        stolen: action.payload.stolen,
+      };
+    case USER_DEVICES_FAIL:
+      return {
         loading: false,
         error: action.payload,
       };

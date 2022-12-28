@@ -3,11 +3,16 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 // REDUCERS
-import { forgotPasswordReducer, userReducer } from "./reducer/auth";
+import {
+  forgotPasswordReducer,
+  userDevicesReducer,
+  userReducer,
+} from "./reducer/auth";
 
 const reducer = combineReducers({
   user: userReducer,
   forgetPassword: forgotPasswordReducer,
+  userDevices: userDevicesReducer,
 });
 
 let initialState = {};
