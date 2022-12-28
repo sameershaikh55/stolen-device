@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-const Input = ({ label, icon, type }) => {
+const Input = ({ label, icon, type, value, name, onChange }) => {
   const [password, setPassword] = useState(false);
 
   return (
@@ -19,7 +19,13 @@ const Input = ({ label, icon, type }) => {
           )}
 
       {(type && <input type="date" placeholder=" " />) || (
-        <input type={icon && !password ? "password" : "text"} placeholder=" " />
+        <input
+          type={icon && !password ? "password" : "text"}
+          placeholder=" "
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
       )}
       <span className="placeholder">{label}</span>
     </label>
