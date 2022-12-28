@@ -8,7 +8,7 @@ import Metadata from "../components/Metadata";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { login, clearErrors, forgetPassword } from "../redux/action/auth";
-import Loader from "../components/Loader";
+import SmallLoader from "../components/SmallLoader";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -61,10 +61,6 @@ const Login = () => {
     forgetPasswordState.error,
     forgetPasswordState.message,
   ]);
-
-  if (userState.loading || forgetPasswordState.loading) {
-    return <Loader />;
-  }
 
   return (
     <Fragment>
@@ -129,10 +125,19 @@ const Login = () => {
 
               <div className="d-flex flex-column">
                 <button
+                  disabled={
+                    userState.loading || forgetPasswordState.loading
+                      ? true
+                      : false
+                  }
                   type="submit"
                   className="rounded-3 btn-lg bg_color2 rounded-3 border-0 f18 w-100 text-center color1 py-2 fw-bold"
                 >
-                  {(forget && "Submit") || "Login"}
+                  {userState.loading || forgetPasswordState.loading ? (
+                    <SmallLoader />
+                  ) : (
+                    (forget && "Submit") || "Login"
+                  )}
                 </button>
 
                 <div className="d-flex justify-content-center f14 gap-2">

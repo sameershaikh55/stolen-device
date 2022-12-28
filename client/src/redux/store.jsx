@@ -8,11 +8,13 @@ import {
   userDevicesReducer,
   userReducer,
 } from "./reducer/auth";
+import { registerDeviceReducer } from "./reducer/registerDevice.jsx";
 
 const reducer = combineReducers({
   user: userReducer,
   forgetPassword: forgotPasswordReducer,
   userDevices: userDevicesReducer,
+  registerDevice: registerDeviceReducer,
 });
 
 let initialState = {};

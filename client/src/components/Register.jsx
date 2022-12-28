@@ -5,7 +5,7 @@ import { FaRegTimesCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { registeration, clearErrors } from "../redux/action/auth";
-import Loader from "../components/Loader";
+import SmallLoader from "../components/SmallLoader";
 
 const Register = ({ register, setRegister }) => {
   const dispatch = useDispatch();
@@ -94,10 +94,6 @@ const Register = ({ register, setRegister }) => {
     }
   }, [dispatch, alert, isAuthenticated, error]);
 
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <div
       style={{ transform: (register && "scale(1)") || "scale(0)" }}
@@ -148,11 +144,11 @@ const Register = ({ register, setRegister }) => {
 
               <div className="col-12">
                 <button
-                  disabled={terms === true ? false : true}
+                  disabled={terms === true ? (loading && true) || false : true}
                   type="submit"
                   className="rounded-3 btn-lg bg_color2 rounded-3 border-0 f18 w-100 text-center color1 py-2 fw-bold"
                 >
-                  Register
+                  {(loading && <SmallLoader />) || "Register"}
                 </button>
               </div>
             </div>

@@ -1,39 +1,37 @@
 import React from "react";
 
-const SelectBox = ({ title }) => {
+const SelectBox = ({ title, name, options, onchange, state }) => {
   return (
     <div className="custom-select">
       <details>
         <summary className="radios">
           <input
             type="radio"
-            name={`${title}item`}
-            id="default"
-            title={title}
+            title={(state === "" && title) || state}
             checked
-          />
-          <input
-            type="radio"
-            name={`${title}item`}
-            id={`${title}item1`}
-            title="Item 1"
-          />
-          <input
-            type="radio"
-            name={`${title}item`}
-            id={`${title}item2`}
-            title="Item 2"
+            readOnly
           />
         </summary>
         <ul className="list-unstyled list">
-          <li>
-            <label htmlFor={`${title}item1`}>
-              Item 1<span></span>
-            </label>
-          </li>
-          <li>
-            <label htmlFor={`${title}item2`}>Item 2</label>
-          </li>
+          {options.map((content, idx) => {
+            return (
+              <li key={idx}>
+                <label
+                  onClick={() =>
+                    onchange({
+                      target: {
+                        name: name,
+                        value: content,
+                      },
+                    })
+                  }
+                  htmlFor={content}
+                >
+                  {content}
+                </label>
+              </li>
+            );
+          })}
         </ul>
       </details>
     </div>

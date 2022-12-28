@@ -20,7 +20,7 @@ const Report = () => {
       <div className="col-6">
         <form className="row gy-4 form_container">
           <div className="col-6">
-            <Checkbox title="Lost/Stolen" />
+            {/* <Checkbox title="Lost/Stolen" /> */}
           </div>
           <div className="col-6">
             <Input label="Date lost/stolens" type="date" />
@@ -29,7 +29,7 @@ const Report = () => {
             <Input label="Serial/IMEI number" />
           </div>
           <div className="col-6">
-            <Checkbox title="Device Type" />
+            {/* <Checkbox title="Device Type" /> */}
           </div>
           <div className="col-6">
             <Input label="Make" />
