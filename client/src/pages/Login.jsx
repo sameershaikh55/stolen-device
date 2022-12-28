@@ -73,7 +73,7 @@ const Login = () => {
       <div className="login_container">
         <Metadata title="Login" />
 
-        <Register register={register} setRegister={setRegister} />
+        {register && <Register register={register} setRegister={setRegister} />}
 
         <div className="login-right">
           <h1 className="display-3">Report and Check Stolen Devices</h1>

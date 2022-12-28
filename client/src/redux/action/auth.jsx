@@ -8,6 +8,9 @@ import {
   REGISTERATION_FAIL,
   REGISTERATION_REQUEST,
   REGISTERATION_SUCCESS,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
+  LOAD_USER_FAIL,
   CLEAR_ERRORS,
 } from "../type/auth";
 import axios from "axios";
@@ -75,6 +78,19 @@ export const forgetPassword = (email) => async (dispatch) => {
       type: FORGOT_PASSWORD_FAIL,
       payload: error.response.data.message,
     });
+  }
+};
+
+// Load User
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+
+    const { data } = await axios.get(`/api/profile/user-data`);
+
+    dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message });
   }
 };
 
