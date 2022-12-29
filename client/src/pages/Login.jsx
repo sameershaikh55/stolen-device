@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { login, clearErrors, forgetPassword } from "../redux/action/auth";
 import SmallLoader from "../components/SmallLoader";
+import { FORGOT_PASSWORD_RESET } from "../redux/type/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,12 @@ const Login = () => {
 
     if (forgetPasswordState.message) {
       alert.success("Email sent!");
+      dispatch({ type: FORGOT_PASSWORD_RESET });
+      setForget(false);
+      setLoginHandle({
+        email: "",
+        password: "",
+      });
     }
 
     if (userState.isAuthenticated) {

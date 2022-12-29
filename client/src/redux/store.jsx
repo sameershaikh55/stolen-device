@@ -5,6 +5,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // REDUCERS
 import {
   forgotPasswordReducer,
+  resetPasswordReducer,
   userDevicesReducer,
   userReducer,
 } from "./reducer/auth";
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   userDevices: userDevicesReducer,
   registerDevice: registerDeviceReducer,
   reportDevice: reportDeviceReducer,
+  resetPassword: resetPasswordReducer,
 });
 
 let initialState = {};

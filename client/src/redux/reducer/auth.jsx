@@ -17,6 +17,10 @@ import {
   USER_DEVICES_REQUEST,
   USER_DEVICES_SUCCESS,
   USER_DEVICES_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
+  FORGOT_PASSWORD_RESET,
 } from "../type/auth";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -95,6 +99,42 @@ export const forgotPasswordReducer = (state = {}, action) => {
         message: action.payload,
       };
     case FORGOT_PASSWORD_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case FORGOT_PASSWORD_RESET:
+      return {
+        ...state,
+        message: null,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const resetPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case RESET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        message: action.payload,
+      };
+    case RESET_PASSWORD_FAIL:
       return {
         ...state,
         loading: false,

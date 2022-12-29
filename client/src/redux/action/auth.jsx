@@ -17,6 +17,9 @@ import {
   USER_DEVICES_REQUEST,
   USER_DEVICES_FAIL,
   USER_DEVICES_SUCCESS,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from "../type/auth";
 import axios from "axios";
 
@@ -76,11 +79,38 @@ export const forgetPassword = (email) => async (dispatch) => {
 
     dispatch({
       type: FORGOT_PASSWORD_SUCCESS,
-      payload: `${Date.now()} - ${data.message}`,
+      payload: data.message,
     });
   } catch (error) {
     dispatch({
       type: FORGOT_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Reset Password
+export const resetPassword = (password, token) => async (dispatch) => {
+  try {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.patch(
+      `/api/auth/password/reset/${token}`,
+      password,
+      config
+    );
+
+    dispatch({
+      type: RESET_PASSWORD_SUCCESS,
+      payload: data.message,
+    });
+  } catch (error) {
+    console.log(error);
+    console.log(error.response.data.message);
+    dispatch({
+      type: RESET_PASSWORD_FAIL,
       payload: error.response.data.message,
     });
   }
