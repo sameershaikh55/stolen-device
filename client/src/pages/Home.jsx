@@ -34,10 +34,6 @@ const Home = () => {
     },
   ];
 
-  const logoutFunc = () => {
-    dispatch(logout());
-  };
-
   useEffect(() => {
     if (error) {
       alert.error(error);
@@ -63,7 +59,7 @@ const Home = () => {
             <h2 className="text-center color2 mt-3 mb-0"> {user.name} </h2>
           </Link>
           <button
-            onClick={logoutFunc}
+            onClick={() => dispatch(logout())}
             className="text-center color2 bg-transparent border-0 color7 h-100"
           >
             Logout

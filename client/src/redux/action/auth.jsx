@@ -20,6 +20,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  PROFILE_UPDATE_REQUEST,
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAIL,
 } from "../type/auth";
 import axios from "axios";
 
@@ -107,10 +110,33 @@ export const resetPassword = (password, token) => async (dispatch) => {
       payload: data.message,
     });
   } catch (error) {
-    console.log(error);
-    console.log(error.response.data.message);
     dispatch({
       type: RESET_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// Reset Password
+export const updateProfile = (updateData) => async (dispatch) => {
+  try {
+    dispatch({ type: PROFILE_UPDATE_REQUEST });
+
+    const config = { headers: { "Content-Type": "application/json" } };
+
+    const { data } = await axios.patch(
+      `/api/profile/update`,
+      updateData,
+      config
+    );
+
+    dispatch({
+      type: PROFILE_UPDATE_SUCCESS,
+      payload: data.user,
+    });
+  } catch (error) {
+    dispatch({
+      type: PROFILE_UPDATE_FAIL,
       payload: error.response.data.message,
     });
   }

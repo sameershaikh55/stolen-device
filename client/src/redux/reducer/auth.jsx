@@ -21,6 +21,10 @@ import {
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
   FORGOT_PASSWORD_RESET,
+  PROFILE_UPDATE_REQUEST,
+  PROFILE_UPDATE_SUCCESS,
+  PROFILE_UPDATE_FAIL,
+  PROFILE_UPDATE_RESET,
 } from "../type/auth";
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -31,6 +35,11 @@ export const userReducer = (state = { user: {} }, action) => {
       return {
         loading: true,
         isAuthenticated: false,
+      };
+    case PROFILE_UPDATE_REQUEST:
+      return {
+        ...state,
+        profileUpdateLoading: true,
       };
     case LOAD_USER_REQUEST:
       return {
@@ -44,6 +53,13 @@ export const userReducer = (state = { user: {} }, action) => {
         ...state,
         loading: false,
         isAuthenticated: true,
+        user: action.payload,
+      };
+    case PROFILE_UPDATE_SUCCESS:
+      return {
+        ...state,
+        profileUpdateLoading: false,
+        profileUpdate: true,
         user: action.payload,
       };
     case LOGOUT_SUCCESS:
@@ -66,6 +82,18 @@ export const userReducer = (state = { user: {} }, action) => {
         loading: false,
         isAuthenticated: false,
         user: null,
+      };
+    case PROFILE_UPDATE_FAIL:
+      return {
+        ...state,
+        profileUpdateLoading: false,
+        profileUpdateError: action.payload,
+      };
+    case PROFILE_UPDATE_RESET:
+      return {
+        ...state,
+        profileUpdate: null,
+        profileUpdateError: null,
       };
     case LOGOUT_FAIL:
       return {
