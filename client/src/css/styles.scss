@@ -755,6 +755,22 @@ input[type="date"] {
       background: $color3;
     }
   }
+
+  .device_list {
+    max-height: 350px;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 7px;
+    }
+    &::-webkit-scrollbar-track {
+      background: $color1;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: $color2;
+      border-radius: 10px;
+    }
+  }
 }
 // HOME END
 

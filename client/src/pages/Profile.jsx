@@ -60,7 +60,7 @@ const Profile = () => {
             <h3 className="color1 mt-3 mb-0 bg_color2 px-2 rounded-2">
               Registered Devices
             </h3>
-            <ul className="d-flex flex-column gap-2 list-unstyled mt-3">
+            <ul className="device_list d-flex flex-column gap-2 list-unstyled mt-3">
               {loading === false ? (
                 (registered.length &&
                   registered.map((content) => {

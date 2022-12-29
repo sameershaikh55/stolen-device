@@ -18,7 +18,15 @@ const Input = ({ label, icon, type, value, name, onChange }) => {
             </div>
           )}
 
-      {(type && <input type="date" placeholder=" " />) || (
+      {(type && (
+        <input
+          type="date"
+          placeholder=" "
+          name={name}
+          value={value}
+          onChange={onChange}
+        />
+      )) || (
         <input
           type={icon && !password ? "password" : "text"}
           placeholder=" "
