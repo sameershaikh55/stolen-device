@@ -11,7 +11,7 @@ export const registerDevice = (deviceData) => async (dispatch) => {
   try {
     dispatch({ type: REGISTER_DEVICE_REQUEST });
 
-    const { data } = await axios.post(`/api/device/register`, deviceData);
+    const { data } = await axios.post(`/api/device`, deviceData);
 
     dispatch({
       type: REGISTER_DEVICE_SUCCESS,
