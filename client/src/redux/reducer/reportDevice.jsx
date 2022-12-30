@@ -55,6 +55,7 @@ export const allReportedDevicesReducer = (
       return {
         ...state,
         loading: true,
+        reportedDevices: [],
       };
     case ALL_REPORTED_DEVICES_SUCCESS:
       return {

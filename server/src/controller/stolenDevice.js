@@ -47,7 +47,22 @@ exports.reportDevice = catchAsyncErrors(async (req, res, next) => {
 
 // SEARCH DEVICES
 exports.searchReportedDevices = catchAsyncErrors(async (req, res, next) => {
-  const devices = await StolenDeviceModel.find();
+  Object.keys(req.query).forEach((key) => {
+    if (req.query[key] === "") {
+      delete req.query[key];
+    } else {
+      if (new Date(req.query[key]).toString() === "Invalid Date") {
+        req.query[key] = new RegExp(req.query[key], "i");
+      } else {
+        req.query[key] = new Date(req.query[key]);
+      }
+    }
+  });
+
+  const devices = await StolenDeviceModel.find({
+    $or: [{ ...req.query }],
+  });
+
   const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
 
   if (!devices.length) {

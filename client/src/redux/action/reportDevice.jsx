@@ -40,7 +40,7 @@ export const allReportedDevices = (searchQuery) => async (dispatch) => {
       data: {
         reportedDevices: { devices, pictureUrl },
       },
-    } = await axios.get(`/api/device/search/results`);
+    } = await axios.get(`/api/device/search/results${searchQuery}`);
 
     for (let i = 0; i < devices.length; i++) {
       devices[i] = {

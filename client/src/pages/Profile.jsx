@@ -169,7 +169,7 @@ const Profile = () => {
               {loading === false ? (
                 (registered.length &&
                   registered.map((content, idx) => {
-                    const { deviceType, model, _id } = content;
+                    const { deviceType, model, _id, reported } = content;
 
                     return (
                       <li
@@ -189,6 +189,7 @@ const Profile = () => {
                               <img src={edit} alt="" className="pointer" />
                             </button>
                             <button
+                              disabled={reported}
                               onClick={() =>
                                 navigate(`/report-registered-device/${_id}`)
                               }
