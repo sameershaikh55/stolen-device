@@ -31,7 +31,7 @@ const Report = () => {
   const [deviceImagePreview, setDeviceImagePreview] = useState("");
   const [reportDeviceHandle, setReportDeviceHandle] = useState({
     type: "",
-    stolenDate: "",
+    stolenDate: new Date(),
     serial: "",
     deviceType: "",
     make: "",

@@ -159,7 +159,7 @@ const Profile = () => {
         <div className="row gy-4">
           <div className="col-12 col-md-8 mx-auto">
             <div className="d-flex justify-content-end">
-              <GoBack />
+              <GoBack profile />
             </div>
             <br />
             <h3 className="color1 mt-3 mb-0 bg_color2 px-2 rounded-2">
@@ -183,10 +183,11 @@ const Profile = () => {
                           </p>
                           <div className="d-flex gap-2">
                             <button
+                              disabled={reported}
                               onClick={() => navigate(`/edit-device/${_id}`)}
                               className="rounded-2"
                             >
-                              <img src={edit} alt="" className="pointer" />
+                              <img src={edit} alt="" />
                             </button>
                             <button
                               disabled={reported}
