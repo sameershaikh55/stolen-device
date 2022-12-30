@@ -35,7 +35,24 @@ exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
   sendResponse(true, 201, "device", newDevice, res);
 });
 
-// REGISTER DEVICES
+// GET REGISTERED DEVICE
+exports.getRegisteredDevice = catchAsyncErrors(async (req, res, next) => {
+  const device = await RegisterDevicesModel.findById(req.params.id);
+  const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
+
+  sendResponse(
+    true,
+    200,
+    "device",
+    {
+      pictureUrl: imageUrl,
+      device,
+    },
+    res
+  );
+});
+
+// EDIT REGISTERED DEVICES
 exports.editDevice = catchAsyncErrors(async (req, res, next) => {
   const updatedDevice = await RegisterDevicesModel.findByIdAndUpdate(
     req.params.id,

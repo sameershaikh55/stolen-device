@@ -6,7 +6,11 @@ const upload = require("../utils/imageUpload");
 const { authentication } = require("../middleware/authentication");
 
 // CONTROLLERS
-const { registerDevice, editDevice } = require("../controller/registerDevices");
+const {
+  registerDevice,
+  editDevice,
+  getRegisteredDevice,
+} = require("../controller/registerDevices");
 const { deviceAuthentication } = require("../middleware/deviceAuthentication");
 
 // ADD DEVICE
@@ -14,9 +18,10 @@ router
   .route("/")
   .post(authentication, upload.single("deviceImage"), registerDevice);
 
-// EDIT DEVICE
+// GET AND EDIT DEVICE
 router
   .route("/:id")
+  .get(authentication, deviceAuthentication, getRegisteredDevice)
   .put(
     authentication,
     deviceAuthentication,

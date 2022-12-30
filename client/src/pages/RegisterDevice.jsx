@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, registerDevice } from "../redux/action/registerDevice";
+import {
+  clearErrors,
+  getRegisteredDevice,
+  registerDevice,
+} from "../redux/action/registerDevice";
 import Checkbox from "../components/Checkbox";
 import FormTaglines from "../components/FormTaglines";
 import GoBack from "../components/GoBack";
@@ -10,12 +14,16 @@ import Input from "../components/Input";
 import Textarea from "../components/Textarea";
 import Layout from "../layout";
 import { REGISTER_DEVICE_RESET } from "../redux/type/registerDevice";
+import { useParams, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const RegisterDevice = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { loading, error, success } = useSelector(
+  const { loading, error, success, device, pictureUrl } = useSelector(
     (state) => state.registerDevice
   );
 
@@ -66,8 +74,14 @@ const RegisterDevice = () => {
     );
     formData.append("deviceImage", registerDeviceHandle.deviceImage);
 
-    dispatch(registerDevice(formData));
+    dispatch(registerDevice(formData, id));
   };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getRegisteredDevice(id));
+    }
+  }, [id]);
 
   useEffect(() => {
     if (error) {
@@ -87,8 +101,38 @@ const RegisterDevice = () => {
       });
       deviceImage.current.value = null;
       dispatch({ type: REGISTER_DEVICE_RESET });
+
+      if (id) {
+        navigate("/profile");
+      }
     }
-  }, [dispatch, alert, error, success]);
+
+    if (id && device) {
+      const {
+        deviceType,
+        serial,
+        make,
+        model,
+        uniqueIdentifiers,
+        deviceImage,
+      } = device;
+
+      setRegisterDeviceHandle({
+        deviceType,
+        serial,
+        make,
+        model,
+        uniqueIdentifiers,
+        deviceImage,
+      });
+
+      setDeviceImagePreview(`${pictureUrl + deviceImage}`);
+    }
+  }, [dispatch, alert, error, success, device, pictureUrl]);
+
+  if (loading && id && !device) {
+    return <Loader />;
+  }
 
   return (
     <Layout classname="home_container" title="Register Device">
