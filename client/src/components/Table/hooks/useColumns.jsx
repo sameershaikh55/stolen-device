@@ -5,7 +5,7 @@ export default function useColumns() {
     () => [
       {
         Header: "",
-        accessor: "picture",
+        accessor: "deviceImage",
       },
       {
         Header: "Make",
@@ -17,7 +17,7 @@ export default function useColumns() {
       },
       {
         Header: "Serial/IMEI Number",
-        accessor: "imei",
+        accessor: "serial",
       },
       {
         Header: "Device type",
@@ -25,7 +25,7 @@ export default function useColumns() {
       },
       {
         Header: "Date Reported",
-        accessor: "dateReported",
+        accessor: "stolenDate",
       },
       {
         Header: "Country",

@@ -4,10 +4,10 @@ import useColumns from "./hooks/useColumns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
-export default function Table() {
+export default function Table({ reportedDevices }) {
   const navigate = useNavigate();
   const columns = useColumns();
-  const data = useRows();
+  const data = useRows(reportedDevices);
   const table = useTable({ columns, data }, useSortBy);
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -57,7 +57,9 @@ export default function Table() {
                   // Apply the row props
                   <tr
                     className="pointer"
-                    onClick={() => navigate("/stolen-device")}
+                    onClick={() =>
+                      navigate(`/stolen-device/${row.original._id}`)
+                    }
                     {...row.getRowProps()}
                   >
                     {

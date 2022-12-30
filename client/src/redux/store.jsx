@@ -10,7 +10,11 @@ import {
   userReducer,
 } from "./reducer/auth";
 import { registerDeviceReducer } from "./reducer/registerDevice.jsx";
-import { reportDeviceReducer } from "./reducer/reportDevice";
+import {
+  allReportedDevicesReducer,
+  reportDeviceReducer,
+  reportedDeviceReducer,
+} from "./reducer/reportDevice";
 
 const reducer = combineReducers({
   user: userReducer,
@@ -19,6 +23,8 @@ const reducer = combineReducers({
   registerDevice: registerDeviceReducer,
   reportDevice: reportDeviceReducer,
   resetPassword: resetPasswordReducer,
+  allReportedDevices: allReportedDevicesReducer,
+  reportedDevice: reportedDeviceReducer,
 });
 
 let initialState = {};

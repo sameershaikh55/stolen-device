@@ -15,8 +15,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { PROFILE_UPDATE_RESET } from "../redux/type/auth";
 import { useAlert } from "react-alert";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
@@ -167,7 +169,7 @@ const Profile = () => {
               {loading === false ? (
                 (registered.length &&
                   registered.map((content, idx) => {
-                    const { deviceType, model } = content;
+                    const { deviceType, model, _id } = content;
 
                     return (
                       <li
@@ -180,7 +182,10 @@ const Profile = () => {
                             {model}
                           </p>
                           <div className="d-flex gap-2">
-                            <button className="rounded-2">
+                            <button
+                              onClick={() => navigate(`/edit-device/${_id}`)}
+                              className="rounded-2"
+                            >
                               <img src={edit} alt="" className="pointer" />
                             </button>
                             <button className="px-2 d-flex justify-content-center align-items-center rounded-2">

@@ -1,5 +1,10 @@
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useRoutes,
+} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loadUser } from "./redux/action/auth";
 
@@ -69,14 +74,17 @@ const AppRoutes = () => {
             </Protected>
           }
         />
-        <Route
-          path="/register-device"
-          element={
-            <Protected>
-              <RegisterDevice />
-            </Protected>
-          }
-        />
+        {["/register-device", "/edit-device/:id"].map((path, index) => (
+          <Route
+            key={index}
+            path={path}
+            element={
+              <Protected>
+                <RegisterDevice />
+              </Protected>
+            }
+          />
+        ))}
         <Route
           path="/search-device"
           element={
@@ -93,14 +101,17 @@ const AppRoutes = () => {
             </Protected>
           }
         />
-        <Route
-          path="/stolen-device"
-          element={
-            <Protected>
-              <DeviceDetail />
-            </Protected>
-          }
-        />
+        {["/stolen-device", "/stolen-device/:id"].map((path, index) => (
+          <Route
+            key={index}
+            path={path}
+            element={
+              <Protected>
+                <DeviceDetail />
+              </Protected>
+            }
+          />
+        ))}
       </Routes>
     </Router>
   );

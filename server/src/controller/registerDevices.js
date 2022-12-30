@@ -34,3 +34,19 @@ exports.registerDevice = catchAsyncErrors(async (req, res, next) => {
 
   sendResponse(true, 201, "device", newDevice, res);
 });
+
+// REGISTER DEVICES
+exports.editDevice = catchAsyncErrors(async (req, res, next) => {
+  const updatedDevice = await RegisterDevicesModel.findByIdAndUpdate(
+    req.params.id,
+    {
+      ...req.body,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
+
+  sendResponse(true, 200, "device", updatedDevice, res);
+});

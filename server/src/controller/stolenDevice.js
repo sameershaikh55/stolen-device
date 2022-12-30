@@ -34,3 +34,37 @@ exports.reportDevice = catchAsyncErrors(async (req, res, next) => {
 
   sendResponse(true, 201, "device", newDevice, res);
 });
+
+// SEARCH DEVICES
+exports.searchReportedDevices = catchAsyncErrors(async (req, res, next) => {
+  const devices = await StolenDeviceModel.find();
+  const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
+
+  sendResponse(
+    true,
+    200,
+    "reportedDevices",
+    {
+      pictureUrl: imageUrl,
+      devices: devices,
+    },
+    res
+  );
+});
+
+// DEVICE DEYAIL
+exports.reportedDeviceDetail = catchAsyncErrors(async (req, res, next) => {
+  const device = await StolenDeviceModel.findById(req.params.id);
+  const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
+
+  sendResponse(
+    true,
+    200,
+    "reportedDevice",
+    {
+      pictureUrl: imageUrl,
+      device: device,
+    },
+    res
+  );
+});
