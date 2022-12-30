@@ -17,7 +17,8 @@ router
   .route("/report")
   .post(authentication, upload.single("deviceImage"), reportDevice);
 
-router.route("/search").get(authentication, searchReportedDevices);
+router.route("/search/results").get(authentication, searchReportedDevices);
+
 router.route("/reported/:id").get(authentication, reportedDeviceDetail);
 
 module.exports = router;

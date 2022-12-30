@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { allReportedDevices, clearErrors } from "../redux/action/reportDevice";
 import { useLocation } from "react-router-dom";
+import { useAlert } from "react-alert";
 
 const SearchResults = () => {
   const { search } = useLocation();
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   const { reportedDevices, error, loading } = useSelector(
     (state) => state.allReportedDevices

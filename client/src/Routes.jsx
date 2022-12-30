@@ -66,14 +66,19 @@ const AppRoutes = () => {
             </Protected>
           }
         />
-        <Route
-          path="/report-device"
-          element={
-            <Protected>
-              <Report />
-            </Protected>
-          }
-        />
+        {["/report-device", "/report-registered-device/:id"].map(
+          (path, index) => (
+            <Route
+              key={index}
+              path={path}
+              element={
+                <Protected>
+                  <Report />
+                </Protected>
+              }
+            />
+          )
+        )}
         {["/register-device", "/edit-device/:id"].map((path, index) => (
           <Route
             key={index}

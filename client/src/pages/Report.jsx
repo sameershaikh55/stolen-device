@@ -10,13 +10,21 @@ import { useAlert } from "react-alert";
 import { clearErrors, reportDevice } from "../redux/action/reportDevice";
 import { REPORT_DEVICE_RESET } from "../redux/type/reportDevice";
 import SmallLoader from "../components/SmallLoader";
+import { useNavigate, useParams } from "react-router-dom";
+import { getRegisteredDevice } from "../redux/action/registerDevice";
+import Loader from "../components/Loader";
 
 const Report = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
   const { loading, error, success } = useSelector(
     (state) => state.reportDevice
+  );
+  const { device, pictureUrl, ...rest } = useSelector(
+    (state) => state.registerDevice
   );
 
   const deviceImage = useRef(null);
@@ -79,7 +87,18 @@ const Report = () => {
   };
 
   useEffect(() => {
+    if (id) {
+      dispatch(getRegisteredDevice(id));
+    }
+  }, [id]);
+
+  useEffect(() => {
     if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+
+    if (rest.error && id) {
       alert.error(error);
       dispatch(clearErrors());
     }
@@ -102,8 +121,39 @@ const Report = () => {
       });
       deviceImage.current.value = null;
       dispatch({ type: REPORT_DEVICE_RESET });
+
+      if (id) {
+        navigate("/profile");
+      }
     }
-  }, [dispatch, alert, error, success]);
+
+    if (id && device) {
+      const {
+        deviceType,
+        serial,
+        make,
+        model,
+        uniqueIdentifiers,
+        deviceImage,
+      } = device;
+
+      setReportDeviceHandle({
+        ...reportDeviceHandle,
+        deviceType,
+        serial,
+        make,
+        model,
+        uniqueIdentifiers,
+        deviceImage,
+      });
+
+      setDeviceImagePreview(`${pictureUrl + deviceImage}`);
+    }
+  }, [dispatch, alert, error, success, device, pictureUrl]);
+
+  if (rest.loading && id && !device) {
+    return <Loader />;
+  }
 
   return (
     <Layout classname="home_container" title="Report Device">

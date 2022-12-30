@@ -188,7 +188,12 @@ const Profile = () => {
                             >
                               <img src={edit} alt="" className="pointer" />
                             </button>
-                            <button className="px-2 d-flex justify-content-center align-items-center rounded-2">
+                            <button
+                              onClick={() =>
+                                navigate(`/report-registered-device/${_id}`)
+                              }
+                              className="px-2 d-flex justify-content-center align-items-center rounded-2"
+                            >
                               <MdReport className="text-danger" />
                             </button>
                           </div>

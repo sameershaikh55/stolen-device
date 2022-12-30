@@ -3,9 +3,11 @@ import useRows from "./hooks/useRows";
 import useColumns from "./hooks/useColumns";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export default function Table({ reportedDevices }) {
   const navigate = useNavigate();
+
   const columns = useColumns();
   const data = useRows(reportedDevices);
   const table = useTable({ columns, data }, useSortBy);
@@ -46,6 +48,7 @@ export default function Table({ reportedDevices }) {
               </tr>
             ))}
           </thead>
+
           {/* Apply the table body props */}
           <tbody {...getTableBodyProps()}>
             {

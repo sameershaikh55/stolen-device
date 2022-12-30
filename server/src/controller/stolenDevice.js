@@ -2,6 +2,7 @@ const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const StolenDeviceModel = require("../models/stolenDevice");
 const RegistrationModel = require("../models/registration");
+const RegisterDevicesModel = require("../models/registerDevices");
 const sendResponse = require("../utils/sendResponse");
 const path = require("path");
 const fs = require("fs");
@@ -32,6 +33,15 @@ exports.reportDevice = catchAsyncErrors(async (req, res, next) => {
   user.devices.stolen.push(req.body._id);
   await user.save();
 
+  await RegisterDevicesModel.findOneAndUpdate(
+    {
+      serial: req.body.serial,
+    },
+    {
+      reported: true,
+    }
+  );
+
   sendResponse(true, 201, "device", newDevice, res);
 });
 
@@ -39,6 +49,10 @@ exports.reportDevice = catchAsyncErrors(async (req, res, next) => {
 exports.searchReportedDevices = catchAsyncErrors(async (req, res, next) => {
   const devices = await StolenDeviceModel.find();
   const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
+
+  if (!devices.length) {
+    return next(new ErrorHandler("Devices not found", 404));
+  }
 
   sendResponse(
     true,
@@ -56,6 +70,10 @@ exports.searchReportedDevices = catchAsyncErrors(async (req, res, next) => {
 exports.reportedDeviceDetail = catchAsyncErrors(async (req, res, next) => {
   const device = await StolenDeviceModel.findById(req.params.id);
   const imageUrl = `${req.protocol}://${req.get("host")}/public/images/`;
+
+  if (!device) {
+    return next(new ErrorHandler("Device not found", 404));
+  }
 
   sendResponse(
     true,

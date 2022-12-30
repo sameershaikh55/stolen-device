@@ -44,6 +44,10 @@ const registerDevicesSchema = new Schema({
     type: mongoose.Types.ObjectId,
     ref: "users",
   },
+  reported: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

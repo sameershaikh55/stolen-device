@@ -64,6 +64,7 @@ export const allReportedDevicesReducer = (
       };
     case ALL_REPORTED_DEVICES_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
